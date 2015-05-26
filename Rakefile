@@ -80,6 +80,11 @@ task :default => :walk_the_path
 task :walk_the_path do
   cd PROB_DIR
   ruby 'path_to_enlightenment.rb'
+  # Go back to root directory.
+  #
+  # This is required because, +guard+ calls +rake+ repeatedly.
+  # Second time +rake+ is called, +cd PROB_DIR+ throws error, as we are already in +PROB_DIR+.
+  cd('..', :verbose => false)
 end
 
 directory DOWNLOAD_DIR
